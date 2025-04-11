@@ -10,13 +10,13 @@ This module will break the environment and test troubleshooting capabilities of 
 
 ## Module 4 Deployment Script
 
-This script (`module4.sh`) is designed to deploy resources to OpenShift projects dynamically. It applies YAML files from the `module-4` folder (or the `fix` folder if specified) to OpenShift projects matching the naming pattern `quarkus-superheroes-user*`. It also restarts pods that use the `ConfigMap` to ensure changes are applied.
+This script (`module4.sh`) is designed to deploy resources to OpenShift projects dynamically. It applies YAML files from the `module-4` folder to OpenShift projects matching the naming pattern `quarkus-superheroes-user*`. It also restarts pods or replicasets when needed.
 
 ### Prerequisites
 
 1. Ensure you have the OpenShift CLI (`oc`) installed and configured.
 2. Log in as `admin` to your OpenShift cluster using the `oc login` command.
-3. Run the script from the root of the project directory, where the `module-4` and `fix` folders are located.
+3. Run the script from the root of the project directory.
 
 ### Usage
 
@@ -25,11 +25,18 @@ This script (`module4.sh`) is designed to deploy resources to OpenShift projects
 To run the script, use the following command:
 
 ```bash
-./module4.sh
+Usage: ./module4.sh [OPTIONS]
 
-options:
---user: <id>: Apply resources only to the project of the specified user. (eg: 1,2,3)
---fix: Use the fix folder instead of the module-4 folder.
+Options:
+  --user <user id>    Apply resources only to the project of the specified user (e.g., user1).
+  --fix               Use the 'fix' folder instead of the 'module-4' folder.
+  -h, --help          Display this help menu.
+
+Examples:
+  ./module4.sh                 # Apply resources to all projects.
+  ./module4.sh --user 1        # Apply resources to the project of user1.
+  ./module4.sh --fix           # Apply resources from the 'fix' folder.
+  ./module4.sh --user 1 --fix  # Apply resources from the 'fix' folder to user1's project.
 ```
 
 ### Notes
