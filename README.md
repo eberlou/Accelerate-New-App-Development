@@ -7,6 +7,7 @@ This module will break the environment and test troubleshooting capabilities of 
 - ConfigMap: rest-villains-config.yaml
 - Request/Limits: fights-db.yaml OOMKilled
 - Healthchecks: rest-heroes.yaml
+- Service: rest-fights-s.yaml
 
 ## Module 4 Deployment Script
 
@@ -29,7 +30,7 @@ Usage: ./module4.sh [OPTIONS]
 
 Options:
   --user <user id>    Apply resources only to the project of the specified user (e.g., user1).
-  --fix               Use the 'fix' folder instead of the 'module-4' folder.
+  --fix               Use the 'fix' folder instead of the 'break' folder.
   -h, --help          Display this help menu.
 
 Examples:

@@ -33,7 +33,7 @@ function show_help() {
   echo ""
   echo "Options:"
   echo "  --user <user id>    Apply resources only to the project of the specified user (e.g., user1)."
-  echo "  --fix               Use the 'fix' folder instead of the 'module-4' folder."
+  echo "  --fix               Use the 'fix' folder instead of the 'break' folder."
   echo "  -h, --help          Display this help menu."
   echo ""
   echo "Examples:"
