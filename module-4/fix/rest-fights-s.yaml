@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    app.openshift.io/vcs-ref: rhbq-3.2
+    app.openshift.io/vcs-url: https://github.com/quarkusio/quarkus-super-heroes
+    app.quarkus.io/build-timestamp: 2023-02-24 - 13:05:29 +0000
+    prometheus.io/path: /q/metrics
+    prometheus.io/port: "8082"
+    prometheus.io/scheme: http
+    prometheus.io/scrape: "true"
+  labels:
+    app: rest-fights
+    app.kubernetes.io/instance: quarkus-super-heroes
+    app.kubernetes.io/name: rest-fights
+    app.kubernetes.io/part-of: fights-service
+    app.kubernetes.io/version: java17-latest-3.2.Final
+    app.openshift.io/runtime: quarkus
+    application: fights-service
+    system: quarkus-super-heroes
+  name: rest-fights
+spec:
+  clusterIP: 172.30.228.228
+  clusterIPs:
+  - 172.30.228.228
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8082
+  selector:
+    app.kubernetes.io/name: rest-fights
+    app.kubernetes.io/part-of: fights-service
+    app.kubernetes.io/version: java17-latest-3.2.Final
