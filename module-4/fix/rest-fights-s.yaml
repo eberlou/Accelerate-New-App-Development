@@ -20,9 +20,6 @@ metadata:
     system: quarkus-super-heroes
   name: rest-fights
 spec:
-  clusterIP: 172.30.228.228
-  clusterIPs:
-  - 172.30.228.228
   ipFamilies:
   - IPv4
   ipFamilyPolicy: SingleStack
