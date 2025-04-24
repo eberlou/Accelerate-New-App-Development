@@ -88,7 +88,7 @@ for PROJECT in $PROJECTS; do
   # Get the names of pods and replicasets that use the resources
   PODS=$(oc get pods -o jsonpath='{.items[*].metadata.name}' --selector=app=rest-villains)
   RSSF=$(oc get rs -o jsonpath='{.items[*].metadata.name}' --selector=app=fights-db)
-  RSSH="$(oc get rs -o jsonpath='{.items[*].metadata.name}' --selector=app=rest-heroes)"
+  RSSH=$(oc get rs -o jsonpath='{.items[*].metadata.name}' --selector=app=rest-heroes)
 
   sleep 3
 

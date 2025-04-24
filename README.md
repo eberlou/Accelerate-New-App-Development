@@ -8,6 +8,8 @@ This module will break the environment and test troubleshooting capabilities of 
 - Request/Limits: fights-db.yaml OOMKilled
 - Healthchecks: rest-heroes.yaml
 - Service: rest-fights-s.yaml
+- Scaled Down: scale-heroes-db.yaml
+- Liveness Proble: ui-superheroes-d.yaml
 
 ## Module 4 Deployment Script
 
