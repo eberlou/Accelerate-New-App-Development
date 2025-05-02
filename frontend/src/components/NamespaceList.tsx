@@ -33,7 +33,7 @@ const NamespaceList: React.FC = () => {
   return (
     <div className="p-4 w-full">
       <div className="space-y-2">
-        {namespaces.map((ns, index) => {
+        {namespaces.map((ns) => {
           const healthPercentage = Math.max(0, 100 - ns.brokenPods * 10); // Example calculation
           const userPart = ns.namespace.split('-').pop(); // Extract 'userX' part
           return (
