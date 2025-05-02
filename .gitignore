@@ -1,0 +1,33 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# Environment variables
+.env
+
+# Build output
+dist/
+build/
+
+# Tailwind CSS generated files
+*.css.map
+
+# IDE-specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# MacOS-specific files
+.DS_Store
+
+# Temporary files
+*.tmp
+*.temp

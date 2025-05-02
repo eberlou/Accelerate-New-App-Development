@@ -11,7 +11,7 @@ This module will break the environment and test troubleshooting capabilities of 
 - Scaled Down: scale-heroes-db.yaml
 - Liveness Proble: ui-superheroes-d.yaml
 
-## Module 4 Deployment Script
+## Module 4 Script
 
 This script (`module4.sh`) is designed to deploy resources to OpenShift projects dynamically. It applies YAML files from the `module-4` folder to OpenShift projects matching the naming pattern `quarkus-superheroes-user*`. It also restarts pods or replicasets when needed.
 
@@ -45,3 +45,91 @@ Examples:
 ### Notes
 - Ensure you have permissions to apply resources and restart pods in the target projects.
 - The script assumes it is run from the project root. It will return an error if required folders are missing.
+
+## Frontend
+This project is a frontend application that displays the number of broken pods in OpenShift namespaces matching the pattern `quarkus-superheroes-userX`. It fetches data from a backend that interacts with the OpenShift API.
+
+### Prerequisites
+
+Before setting up the frontend, ensure the following are installed on your development laptop:
+
+1. **Node.js** (v16 or later) and **npm**:
+   - [Download and install Node.js](https://nodejs.org/).
+   - Verify installation:
+     ```bash
+     node -v
+     npm -v
+     ```
+
+2. **OpenShift API Token**:
+   - Log in to your OpenShift cluster using the `oc` CLI:
+     ```bash
+     oc login --server=https://<your-openshift-api-url>
+     ```
+   - Retrieve your API token:
+     ```bash
+     oc whoami -t
+     ```
+
+3. **Backend Dependencies**:
+   - Ensure you have `axios` and `express` installed for the backend.
+
+### Setup Instructions
+
+Follow these steps to set up and run the frontend:
+
+#### 1. Clone the Repository
+
+Clone the repository to your local machine:
+```bash
+git clone https://github.com/<your-repo>/Accelerate-New-App-Development.git
+cd Accelerate-New-App-Development
+```
+
+#### 2. Set Up the Backend
+
+1. Navigate to the project root directory.
+2. Install backend dependencies:
+
+```bash
+npm install express axios
+```
+
+3. Create a .env file in the root directory and add the following:
+
+```bash
+OPENSHIFT_API_URL=https://<your-openshift-api-url>
+OPENSHIFT_API_TOKEN=<your-openshift-api-token>
+```
+4. Start the backend server:
+The backend will run on http://localhost:3001.
+
+```bash
+node server.js
+```
+
+#### Set Up the Frontend
+
+1. Navigate to the `frontend` directory:
+
+```bash
+cd frontend
+```
+
+2. Install frontend dependencies:
+
+```bash
+npm install
+```
+
+3. Start the development server
+
+```bash
+npm run dev
+```
+
+The frontend will run on `http://localhost:5173`
+
+4. Access the Application
+
+Open your browser and navigate to http://localhost:5173. The application will display the number of broken pods for each namespace, sorted from least to most broken pods. The data will auto-refresh every 30 seconds.
