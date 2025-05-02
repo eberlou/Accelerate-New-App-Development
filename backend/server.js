@@ -37,7 +37,7 @@ app.get('/api/healthchecks', async (req, res) => {
     const results = await runHealthChecks(namespaces);
 
     res.json(results);
-    console.log('Health check result:', results);
+    logger.log('Health check result:', results);
   } catch (error) {
     logger.error('Error fetching health checks:', error);
     res.status(500).json({ error: 'Failed to fetch health checks' });
@@ -46,5 +46,5 @@ app.get('/api/healthchecks', async (req, res) => {
 
 // Start the server
 app.listen(PORT, () => {
-  console.log(`Backend server running at http://localhost:${PORT}`);
+  logger.log(`Backend server running at http://localhost:${PORT}`);
 });

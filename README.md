@@ -93,6 +93,7 @@ node server.js
 To receive logs in the console
 
 ```bash
+INFO=true node server.js
 DEBUG=true node server.js
 ```
 

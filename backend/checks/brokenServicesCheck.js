@@ -14,7 +14,7 @@ const execCommand = (command) =>
   });
 
 const brokenServicesCheck = async (namespace) => {
-  logger.log(`Starting broken services check for namespace: ${namespace}`);
+  logger.info(`Starting broken services check for namespace: ${namespace}`);
 
   try {
     const servicesOutput = await execCommand(
@@ -22,7 +22,7 @@ const brokenServicesCheck = async (namespace) => {
     );
     const services = JSON.parse(servicesOutput).items;
 
-    logger.log(`Found ${services.length} services in namespace: ${namespace}`);
+    logger.info(`Found ${services.length} services in namespace: ${namespace}`);
 
     let brokenServicesCount = 0;
 
@@ -31,14 +31,14 @@ const brokenServicesCheck = async (namespace) => {
 
       // Skip Jaeger and Kafka services
       if (serviceName.includes('jaeger') || serviceName.includes('kafka')) {
-        logger.log(`Skipping service: ${serviceName}`);
+        logger.info(`Skipping service: ${serviceName}`);
         continue;
      }
 
       const ports = service.spec.ports;
       const selector = service.spec.selector;
 
-      logger.log(
+      logger.info(
         `${namespace}: Checking service: ${serviceName}, Ports: ${JSON.stringify(ports)}, Selector: ${JSON.stringify(selector)}`
       );
 
@@ -48,18 +48,18 @@ const brokenServicesCheck = async (namespace) => {
         .join(',');
 
       if (!labelSelector) {
-        logger.log(`${namespace}: Service ${serviceName} has no selector. Skipping.`);
+        logger.info(`${namespace}: Service ${serviceName} has no selector. Skipping.`);
         brokenServicesCount++;
         continue;
       }
 
-      logger.log(`${namespace}: Using label selector: ${labelSelector}`);
+      logger.info(`${namespace}: Using label selector: ${labelSelector}`);
 
       // Validate port mappings
       for (const port of ports) {
         const targetPort = port.targetPort;
 
-        logger.log(
+        logger.info(
           `${namespace}: Validating port mapping for service: ${serviceName}, Target Port: ${targetPort}`
         );
 
@@ -71,7 +71,7 @@ const brokenServicesCheck = async (namespace) => {
           const pods = JSON.parse(podsOutput).items;
 
           if (pods.length === 0) {
-            logger.log(`${namespace}: No pods found for service: ${serviceName}`);
+            logger.info(`${namespace}: No pods found for service: ${serviceName}`);
             brokenServicesCount++;
             break; // No need to check further ports for this service
           }
@@ -86,7 +86,7 @@ const brokenServicesCheck = async (namespace) => {
             );
 
             if (isTargetPortValid) {
-              logger.log(
+              logger.info(
                 `${namespace}: Service ${serviceName} has a valid targetPort: ${targetPort}`
               );
               break; // If one pod has a valid targetPort, the service is valid
@@ -94,14 +94,14 @@ const brokenServicesCheck = async (namespace) => {
           }
 
           if (!isTargetPortValid) {
-            logger.log(
+            logger.info(
               `${namespace}: Service ${serviceName} has an invalid targetPort: ${targetPort}`
             );
             brokenServicesCount++;
             break; // No need to check further ports for this service
           }
         } catch (error) {
-          logger.log(
+          logger.info(
             `${namespace}: Error validating targetPort for service ${serviceName}: ${error.message || error}`
           );
           brokenServicesCount++;
@@ -110,7 +110,7 @@ const brokenServicesCheck = async (namespace) => {
       }
     }
 
-    logger.log(
+    logger.info(
       `${namespace}:  Total Services = ${services.length}, Broken Services = ${brokenServicesCount}`
     );
 
