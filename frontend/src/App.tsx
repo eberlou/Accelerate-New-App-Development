@@ -3,9 +3,10 @@ import NamespaceList from './components/NamespaceList';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Broken Pods Standing</h1>
-      <NamespaceList />
+    <div className="min-h-screen bg-red-hat-gray">
+      <div className="container mx-auto py-8">
+        <NamespaceList />
+      </div>
     </div>
   );
 }
