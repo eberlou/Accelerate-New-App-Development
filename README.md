@@ -61,14 +61,10 @@ Before setting up the frontend, ensure the following are installed on your devel
      npm -v
      ```
 
-2. **OpenShift API Token**:
-   - Log in to your OpenShift cluster using the `oc` CLI:
+2. **OpenShift Admin Connection**:
+   - Log in to your OpenShift cluster as `admin` using the `oc` CLI:
      ```bash
      oc login --server=https://<your-openshift-api-url>
-     ```
-   - Retrieve your API token:
-     ```bash
-     oc whoami -t
      ```
 
 ### Automatic: Set Up the Backend & Frontend
@@ -86,26 +82,18 @@ Before setting up the frontend, ensure the following are installed on your devel
 cd backend
 ```
 
-2. Install backend dependencies:
-
-```bash
-npm install
-```
-
-3. Create a `.env` file in the root directory and add the following:
-
-```bash
-touch .env
-```
-
-```bash
-OPENSHIFT_API_URL=https://<your-openshift-api-url>
-OPENSHIFT_API_TOKEN=<your-openshift-api-token>
-```
-4. Start the backend server:
+2. Start the backend server:
 
 ```bash
 node server.js
+```
+
+3. Optional: Run in debug mode
+
+To receive logs in the console
+
+```bash
+DEBUG=true node server.js
 ```
 
 The backend will run on `http://localhost:3001`.
