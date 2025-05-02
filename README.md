@@ -2,14 +2,14 @@
 
 ## Module 4
 
-This module will break the environment and test troubleshooting capabilities of the developers
+This module will break the environment and test the troubleshooting capabilities of the developers
 
-- ConfigMap: rest-villains-config.yaml
-- Request/Limits: fights-db.yaml OOMKilled
-- Healthchecks: rest-heroes.yaml
-- Service: rest-fights-s.yaml
-- Scaled Down: scale-heroes-db.yaml
-- Liveness Proble: ui-superheroes-d.yaml
+- ConfigMap: `rest-villains-config.yaml`
+- Request/Limits: `fights-db.yaml` (OOMKilled)
+- Health Checks: `rest-heroes.yaml`
+- Service: `rest-fights-s.yaml`
+- Scaled Down: `scale-heroes-db.yaml`
+- Liveness Probe: `ui-superheroes-d.yaml`
 
 ## Module 4 Script
 
@@ -73,7 +73,7 @@ Before setting up the frontend, ensure the following are installed on your devel
 
 ### Set Up the Backend
 
-1. Navigate to the project root directory.
+1. Navigate to the project backend directory.
 ```bash
 cd backend
 ```
@@ -84,7 +84,7 @@ cd backend
 npm install
 ```
 
-3. Create a .env file in the root directory and add the following:
+3. Create a `.env` file in the root directory and add the following:
 
 ```bash
 touch .env
@@ -100,7 +100,7 @@ OPENSHIFT_API_TOKEN=<your-openshift-api-token>
 node server.js
 ```
 
-The backend will run on http://localhost:3001.
+The backend will run on `http://localhost:3001`.
 
 ### Set Up the Frontend
 
@@ -126,4 +126,4 @@ The frontend will run on `http://localhost:5173`
 
 4. Access the Application
 
-Open your browser and navigate to http://localhost:5173. The application will display the number of broken pods for each namespace, sorted from least to most broken pods. The data will auto-refresh every 5 seconds.
+Open your browser and navigate to `http://localhost:5173`. The application will display the number of broken pods for each namespace, sorted from least to most broken pods. The data will auto-refresh every 5 seconds.
