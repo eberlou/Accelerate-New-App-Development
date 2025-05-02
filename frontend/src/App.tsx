@@ -1,12 +1,16 @@
 import './App.css';
+import Header from './components/Header';
+import Footer from './components/Footer';
 import NamespaceList from './components/NamespaceList';
 
 function App() {
   return (
-    <div className="min-h-screen bg-red-hat-gray">
-      <div className="container mx-auto py-8">
+    <div className="min-h-screen flex flex-col bg-red-hat-dark-gray">
+      <Header />
+      <main className="flex-grow py-8">
         <NamespaceList />
-      </div>
+      </main>
+      <Footer />
     </div>
   );
 }

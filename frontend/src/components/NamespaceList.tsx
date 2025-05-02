@@ -22,7 +22,7 @@ const NamespaceList: React.FC = () => {
 
   useEffect(() => {
     fetchData();
-    const interval = setInterval(fetchData, 30000); // Refresh every 30 seconds
+    const interval = setInterval(fetchData, 10000); // Refresh every 30 seconds
     return () => clearInterval(interval);
   }, []);
 
@@ -31,29 +31,29 @@ const NamespaceList: React.FC = () => {
   }
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold text-red-hat-primary mb-4">
-        Broken Pods Standing
-      </h1>
-      <ul className="space-y-4">
-        {namespaces.map((ns) => {
+    <div className="p-4 w-full">
+      <div className="space-y-2">
+        {namespaces.map((ns, index) => {
           const healthPercentage = Math.max(0, 100 - ns.brokenPods * 10); // Example calculation
+          const userPart = ns.namespace.split('-').pop(); // Extract 'userX' part
           return (
-            <li
-              key={ns.namespace}
-              className="p-4 bg-white shadow rounded-lg border border-gray-200"
-            >
-              <div className="flex justify-between items-center mb-2">
-                <span className="font-bold text-lg">{ns.namespace}</span>
-                <span className="text-sm text-gray-500">
-                  {healthPercentage}% Healthy
-                </span>
-              </div>
+            <div key={ns.namespace} className="flex items-center space-x-4">
+              {/* Badge for userX */}
+              <span
+                className={`px-2 py-1 text-xs font-bold rounded-full ${
+                  healthPercentage === 100
+                    ? 'bg-green-500 text-white'
+                    : 'bg-gray-200 text-gray-700'
+                }`}
+              >
+                {userPart}
+              </span>
+              {/* Progress Bar */}
               <ProgressBar percentage={healthPercentage} />
-            </li>
+            </div>
           );
         })}
-      </ul>
+      </div>
     </div>
   );
 };

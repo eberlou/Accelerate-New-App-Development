@@ -1,8 +1,11 @@
 #root {
-  max-width: 1280px;
+  width: 90%; /* Full width */
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column; /* Ensure children stack vertically */
   text-align: center;
+
 }
 
 .logo {
