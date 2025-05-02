@@ -14,7 +14,7 @@ module.exports = {
                 'red-hat-primary': '#EE0000',
                 'red-hat-secondary': '#CC0000',
                 'red-hat-gray': '#F5F5F5',
-                'red-hat-dark-gray': '#242424',
+                'red-hat-dark-gray': '#1b1d21',
             },
         },
     },

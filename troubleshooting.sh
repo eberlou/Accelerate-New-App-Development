@@ -1,10 +1,33 @@
 #!/bin/bash
 
+# Function to display the help menu
+function show_help() {
+  echo ""
+  echo "Usage: ./troubleshooting.sh [OPTIONS]"
+  echo ""
+  echo "Options:"
+  echo "  --user <user id>    Apply resources only to the project of the specified user (e.g., user1)."
+  echo "  --fix               Use the 'fix' folder instead of the 'break' folder."
+  echo "  -h, --help          Display this help menu."
+  echo ""
+  echo "Examples:"
+  echo "  ./troubleshooting.sh                 # Apply resources to all projects."
+  echo "  ./troubleshooting.sh --user 1        # Apply resources to the project of user1."
+  echo "  ./troubleshooting.sh --fix           # Apply resources from the 'fix' folder."
+  echo "  ./troubleshooting.sh --user 1 --fix  # Apply resources from the 'fix' folder to user1's project."
+  echo ""
+  exit 0
+}
+
 # Define the folder containing the resources to deploy
 SCRIPT_DIR=$(dirname "$(realpath "$0")")
-BASE_FOLDER="$SCRIPT_DIR/module-4"
+BASE_FOLDER="$SCRIPT_DIR/troubleshooting-resources"
 FIX_FOLDER="$BASE_FOLDER/fix"
 BREAK_FOLDER="$BASE_FOLDER/break"
+
+# Variables
+USER_ID=""
+FIX=false
 
 # Check if the required folders exist
 if [[ ! -d "$BASE_FOLDER" ]]; then
@@ -22,33 +45,10 @@ if [[ ! -d "$BREAK_FOLDER" ]]; then
   exit 1
 fi
 
-# Parse command-line arguments
-USER_FILTER=""
-USE_FIX_FOLDER=false
-
-# Function to display the help menu
-function show_help() {
-  echo ""
-  echo "Usage: ./module4.sh [OPTIONS]"
-  echo ""
-  echo "Options:"
-  echo "  --user <user id>    Apply resources only to the project of the specified user (e.g., user1)."
-  echo "  --fix               Use the 'fix' folder instead of the 'break' folder."
-  echo "  -h, --help          Display this help menu."
-  echo ""
-  echo "Examples:"
-  echo "  ./module4.sh                 # Apply resources to all projects."
-  echo "  ./module4.sh --user 1        # Apply resources to the project of user1."
-  echo "  ./module4.sh --fix           # Apply resources from the 'fix' folder."
-  echo "  ./module4.sh --user 1 --fix  # Apply resources from the 'fix' folder to user1's project."
-  echo ""
-  exit 0
-}
-
 while [[ "$#" -gt 0 ]]; do
   case $1 in
-    --user) USER_FILTER="$2"; shift ;;
-    --fix) USE_FIX_FOLDER=true ;;
+    --user) USER_ID="$2"; shift ;;
+    --fix) FIX=true ;;
     -h|--help) show_help ;;
     *) echo "Unknown parameter: $1"; show_help ;;
   esac
@@ -57,13 +57,13 @@ done
 
 RUNNING_FOLDER="$BREAK_FOLDER"
 # Determine the folder to apply
-if $USE_FIX_FOLDER; then
+if $FIX; then
   RUNNING_FOLDER="$FIX_FOLDER"
 fi
 
 # Get the list of projects matching the naming pattern
-if [[ -n "$USER_FILTER" ]]; then
-  PROJECTS=$(oc get projects -o jsonpath='{.items[*].metadata.name}' | tr ' ' '\n' | grep "^quarkus-superheroes-user$USER_FILTER")
+if [[ -n "$USER_ID" ]]; then
+  PROJECTS=$(oc get projects -o jsonpath='{.items[*].metadata.name}' | tr ' ' '\n' | grep "^quarkus-superheroes-user$USER_ID")
 else
   PROJECTS=$(oc get projects -o jsonpath='{.items[*].metadata.name}' | tr ' ' '\n' | grep '^quarkus-superheroes-user')
 fi

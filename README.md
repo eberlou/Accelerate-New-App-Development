@@ -11,9 +11,9 @@ This module will break the environment and test the troubleshooting capabilities
 - Scaled Down: `scale-heroes-db.yaml`
 - Liveness Probe: `ui-superheroes-d.yaml`
 
-## Module 4 Script
+## Troubleshooting Script
 
-This script (`module4.sh`) is designed to deploy resources to OpenShift projects dynamically. It applies YAML files from the `module-4` folder to OpenShift projects matching the naming pattern `quarkus-superheroes-user*`. It also restarts pods or replicasets when needed.
+This script (`troubleshooting.sh`) is designed to deploy resources to OpenShift projects dynamically. It applies YAML files from the `troubleshooting-resources` folder to OpenShift projects matching the naming pattern `quarkus-superheroes-user*`. It also restarts pods or replicasets when needed.
 
 ### Prerequisites
 
@@ -28,7 +28,7 @@ This script (`module4.sh`) is designed to deploy resources to OpenShift projects
 To run the script, use the following command:
 
 ```bash
-Usage: ./module4.sh [OPTIONS]
+Usage: ./troubleshooting.sh [OPTIONS]
 
 Options:
   --user <user id>    Apply resources only to the project of the specified user (e.g., user1).
@@ -36,10 +36,10 @@ Options:
   -h, --help          Display this help menu.
 
 Examples:
-  ./module4.sh                 # Apply resources to all projects.
-  ./module4.sh --user 1        # Apply resources to the project of user1.
-  ./module4.sh --fix           # Apply resources from the 'fix' folder.
-  ./module4.sh --user 1 --fix  # Apply resources from the 'fix' folder to user1's project.
+  ./troubleshooting.sh                 # Apply resources to all projects.
+  ./troubleshooting.sh --user 1        # Apply resources to the project of user1.
+  ./troubleshooting.sh --fix           # Apply resources from the 'fix' folder.
+  ./troubleshooting.sh --user 1 --fix  # Apply resources from the 'fix' folder to user1's project.
 ```
 
 ### Notes
@@ -61,48 +61,44 @@ Before setting up the frontend, ensure the following are installed on your devel
      npm -v
      ```
 
-2. **OpenShift API Token**:
-   - Log in to your OpenShift cluster using the `oc` CLI:
+2. **OpenShift Admin Connection**:
+   - Log in to your OpenShift cluster as `admin` using the `oc` CLI:
      ```bash
      oc login --server=https://<your-openshift-api-url>
      ```
-   - Retrieve your API token:
-     ```bash
-     oc whoami -t
-     ```
 
-### Set Up the Backend
+### Automatic: Set Up the Backend & Frontend
+
+1. Execute the `servers.sh` script from the base directory. This will install all npm dependencies and run the backend and frontend services.
+
+```bash
+./servers.sh
+```
+
+### Manual: Set Up the Backend
 
 1. Navigate to the project backend directory.
 ```bash
 cd backend
 ```
 
-2. Install backend dependencies:
-
-```bash
-npm install
-```
-
-3. Create a `.env` file in the root directory and add the following:
-
-```bash
-touch .env
-```
-
-```bash
-OPENSHIFT_API_URL=https://<your-openshift-api-url>
-OPENSHIFT_API_TOKEN=<your-openshift-api-token>
-```
-4. Start the backend server:
+2. Start the backend server:
 
 ```bash
 node server.js
 ```
 
+3. Optional: Run in debug mode
+
+To receive logs in the console
+
+```bash
+DEBUG=true node server.js
+```
+
 The backend will run on `http://localhost:3001`.
 
-### Set Up the Frontend
+### Manual: Set Up the Frontend
 
 1. Navigate to the `frontend` directory:
 
